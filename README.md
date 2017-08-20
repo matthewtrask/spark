@@ -1,41 +1,72 @@
-# Spark
+# Spark 1.0 fork
 
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Defining Subscription Plans](#defining-subscription-plans)
-- [Teams](#teams)
-- [Customizing Spark Views](#customizing-spark-views)
-- [Customizing Spark JavaScript](#customizing-spark-javascript)
-
-<a name="introduction"></a>
 ## Introduction
 
-**This is an alpha, experimental release of Spark. Things will change. Things will break. Thank you for testing!**
+This is a non-deleted fork of Laravel Spark 1.0, which eventually became a paid product (available at https://spark.laravel.com/).
 
-Spark is an experimental project primarily intended for building business oriented SaaS applications, and is highly opinionated towards that use case.
+The latest supported Laravel version is currently 5.2 (compatibility with Laravel 5.3 was added in Spark 2.0).
 
-<a name="installation"></a>
 ## Installation
 
-First, install the Spark installer and make sure that the global Composer `bin` directory is within your system's `$PATH`:
-```
-	composer global require "certly/spark-installer=~1.0"
-```
-Next, create a new Laravel application and install Spark:
-```
-	laravel new application
+Create a new Laravel 5.2 application and give it a name (`project-name` here):
 
-	cd application
-
-	spark install
 ```
-After installing Spark, be sure to migrate your database, install the NPM dependencies, and run the `gulp` command. You should also set the `AUTHY_KEY`, `STRIPE_KEY`, and `STRIPE_SECRET` environment variables in your `.env` file.
+composer create-project laravel/laravel project-name 5.2.*
+
+cd project-name
+```
+
+Add the Spark installer and install Spark (answer "no" to all questions it will ask you):
+
+```
+composer require "nkkollaw/spark-installer=~1.0"
+
+vendor/nkkollaw/spark-installer/spark install
+```
+
+Create a database for your app.
+
+You might want to use the utf8mb4 encoding to include support for emojii, and in this case you should add the following to `app/Providers/AppServiceProviders.php`:
+
+```php
+use Illuminate\Support\Facades\Schema; // add at the top
+
+Schema::defaultStringLength(191); // add inside the boot() function
+
+```
+
+Edit `.env` to add your database info and your URL if different than `http://localhost`. You might want to also set the `AUTHY_KEY`, `STRIPE_KEY`, and `STRIPE_SECRET` environment variables or do it later.
+
+Migrate your database:
+
+```
+php artisan migrate
+```
+
+Install NPM dependencies:
+
+```
+npm install
+```
+
+Execute Gulp tasks:
+
+```
+gulp
+```
+
+It should work.
+
+### Post-install
 
 You may also wish to review the `SparkServiceProvider` class that was installed in your application. This provider is the central location for customizing your Spark installation.
 
-Note that installing Spark should be done while crafting your application. Installing Spark after running commands such as `php artisan app:name MyApp` may result in errors when trying to install.
+### Notes
 
-<a name="defining-subscription-plans"></a>
+Installing Spark should be done while crafting your application. Installing Spark after running commands such as `php artisan app:name MyApp` may result in errors when trying to install.
+
+From now on you're on your own. The rest of this README has not been checked and things may or may not work (although they should).
+
 ## Defining Subscription Plans
 
 Subscription plans may be defined in your `app/Providers/SparkServiceProvider.php` file. This file contains a `customizeSubscriptionPlans` method. Within this method, you may define all of your application's subscription plans. There are a few examples in the method to get you started.
@@ -70,7 +101,6 @@ Site-wide promotions may be run using the `Spark::promotion` method within your 
 ```php
 	Spark::promotion('coupon-code');
 ```
-<a name="teams"></a>
 ## Teams
 
 To enable teams, simply use the `CanJoinTeams` trait on your `User` model. The trait has already been imported in the top of the file, so you only need to add it to the model itself:
@@ -105,7 +135,6 @@ If you would like to publish every Spark view, you may use the `spark-full` tag:
 	php artisan vendor:publish --tag=spark-full
 ```
 
-<a name="customizing-spark-javascript"></a>
 ## Customizing Spark JavaScript
 
 The `resources/assets/js/core/components.js` file contains the statements to load some common Spark Vue components. [Vue](http://vuejs.org) is the JavaScript framework used by the Spark registration and settings screens.
