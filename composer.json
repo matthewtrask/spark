@@ -1,6 +1,6 @@
 {
-    "name": "certly/spark",
-    "description": "Laravel Spark provides a starter scaffolding for Laravel SaaS applications.",
+    "name": "nkkollaw/spark",
+    "description": "A fork of Laravel Spark at version 1.0",
     "keywords": ["laravel", "stripe", "billing", "scaffolding"],
     "license": "MIT",
     "authors": [
