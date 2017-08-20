@@ -26,12 +26,6 @@ vendor/nkkollaw/spark-installer/spark install
 
 Create a database for your app.
 
-~~You might want to use the utf8mb4 encoding to include support for emojii, and in this case you should add the following to `app/Providers/AppServiceProviders.php
-`:php
-use Illuminate\Support\Facades\Schema; // add at the top
-Schema::defaultStringLength(191); // add inside the boot() function
-```
-
 Edit `.env` to add your database info and your URL if different than `http://localhost`. You might want to also set the `AUTHY_KEY`, `STRIPE_KEY`, and `STRIPE_SECRET` environment variables or do it later.
 
 Migrate your database:
