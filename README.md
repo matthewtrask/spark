@@ -56,6 +56,10 @@ You may also wish to review the `SparkServiceProvider` class that was installed 
 
 Installing Spark should be done while crafting your application. Installing Spark after running commands such as `php artisan app:name MyApp` may result in errors when trying to install.
 
+There are many articles and tutorials on the web about Spark 1.0, such as:
+
+- https://mattstauffer.co/blog/introducing-laravel-spark-a-deep-dive
+
 From now on you're on your own. The rest of this README has not been checked and things may or may not work (although they should).
 
 ## Defining Subscription Plans
